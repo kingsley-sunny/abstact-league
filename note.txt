@@ -1,0 +1,28 @@
+For the play match.
+    the play match function will have three parameters(homeTeam, awayTeam, competitionName)
+    make a new variable and for the home and away team.
+    This will be the play match algorithm:
+        
+    any changes in the match will reflet to the league content in the team 
+
+
+TODOS 
+    Make each team statictics updated after each match
+    Make the play Week Match button working and then and then disable play match at the end of the week
+    Make a table and then design the table
+    Make a history object and a history component which will have a previous winnners component, records component and teams component
+    Make the state so that it can be saved to local storage 
+
+previous winners;
+    elephant
+    whale
+    lion
+    lion
+    elephant
+    eagle
+
+fruits previous winners
+    apple
+    pineapple
+    pineapple
+    apple
