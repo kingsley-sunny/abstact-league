@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/kingsley-sunny/abstact-league/static/css/main.1f3d1cf0.css",
-    "main.js": "/kingsley-sunny/abstact-league/static/js/main.3604ac01.js",
-    "index.html": "/kingsley-sunny/abstact-league/index.html",
-    "main.1f3d1cf0.css.map": "/kingsley-sunny/abstact-league/static/css/main.1f3d1cf0.css.map",
-    "main.3604ac01.js.map": "/kingsley-sunny/abstact-league/static/js/main.3604ac01.js.map"
+    "main.css": "/abstact-league/static/css/main.1f3d1cf0.css",
+    "main.js": "/abstact-league/static/js/main.3604ac01.js",
+    "index.html": "/abstact-league/index.html",
+    "main.1f3d1cf0.css.map": "/abstact-league/static/css/main.1f3d1cf0.css.map",
+    "main.3604ac01.js.map": "/abstact-league/static/js/main.3604ac01.js.map"
   },
   "entrypoints": [
     "static/css/main.1f3d1cf0.css",
