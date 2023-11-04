@@ -3,11 +3,11 @@ import initialState from "./initialState";
 import League_Context from "./league-context";
 
 let LOCAL_DATA;
-if (localStorage.getItem("abstractLeagues") === null) {
+if (localStorage.getItem("abstractLeague") === null) {
   LOCAL_DATA = initialState;
-  localStorage.setItem("abstractLeagues", JSON.stringify(LOCAL_DATA));
+  localStorage.setItem("abstractLeague", JSON.stringify(LOCAL_DATA));
 } else {
-  LOCAL_DATA = { ...JSON.parse(localStorage.getItem("abstractLeagues")) };
+  LOCAL_DATA = { ...JSON.parse(localStorage.getItem("abstractLeague")) };
 }
 
 const leagueReducer = (state, action) => {
@@ -133,7 +133,7 @@ const LeagueProvider = props => {
   const [allDataState, dispatchLeagueReducer] = useReducer(leagueReducer, LOCAL_DATA);
 
   useEffect(() => {
-    localStorage.setItem("abstractLeagues", JSON.stringify(allDataState));
+    localStorage.setItem("abstractLeague", JSON.stringify(allDataState));
   }, [allDataState]);
 
   const setCurrentLeagueHandler = league => {
