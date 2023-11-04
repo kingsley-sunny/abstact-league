@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/abstact-league/static/css/main.1f3d1cf0.css",
-    "main.js": "/abstact-league/static/js/main.1bc2ccd4.js",
+    "main.css": "/abstact-league/static/css/main.98983b1b.css",
+    "main.js": "/abstact-league/static/js/main.0af24c7f.js",
     "index.html": "/abstact-league/index.html",
-    "main.1f3d1cf0.css.map": "/abstact-league/static/css/main.1f3d1cf0.css.map",
-    "main.1bc2ccd4.js.map": "/abstact-league/static/js/main.1bc2ccd4.js.map"
+    "main.98983b1b.css.map": "/abstact-league/static/css/main.98983b1b.css.map",
+    "main.0af24c7f.js.map": "/abstact-league/static/js/main.0af24c7f.js.map"
   },
   "entrypoints": [
-    "static/css/main.1f3d1cf0.css",
-    "static/js/main.1bc2ccd4.js"
+    "static/css/main.98983b1b.css",
+    "static/js/main.0af24c7f.js"
   ]
 }
