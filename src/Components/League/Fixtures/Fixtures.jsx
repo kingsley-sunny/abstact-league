@@ -1,14 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import League_Context from "../../../Store/league-context";
-import Button from "../../UI/Button";
-import EachFixture from "./EachFixture";
+import useAwayToScore from "../../CustomHooks/useAwayToScore";
+import useHomeToScore from "../../CustomHooks/useHomeToScore";
+import usePlayMatch from "../../CustomHooks/usePlayMatch";
+import changeHistory from "../../Functions/changeHistory";
 import getLeagueFixtures from "../../Functions/getLeagueFixtures";
 import getMatchShotStatictics from "../../Functions/getMatchShotStatictics";
-import useHomeToScore from "../../CustomHooks/useHomeToScore";
-import useAwayToScore from "../../CustomHooks/useAwayToScore";
-import usePlayMatch from "../../CustomHooks/usePlayMatch";
-import getTeamsAndRelegatedTeams from "../../Functions/getTeamsAndRelegatedTeams";
-import changeHistory from "../../Functions/changeHistory";
+import Button from "../../UI/Button";
+import EachFixture from "./EachFixture";
 
 const Fixtures = () => {
   // The league context
@@ -24,10 +23,7 @@ const Fixtures = () => {
 
   //   This will set a new fixtures for the season
   const setNewFixturesHandler = () => {
-    const gottenFixtures = getLeagueFixtures(
-      ctx[ctx.currentLeague].teams,
-      ctx.currentLeague
-    );
+    const gottenFixtures = getLeagueFixtures(ctx[ctx.currentLeague].teams, ctx.currentLeague);
     ctx.setFixtures(gottenFixtures);
     ctx.setCurrentFixtures(0, ctx.currentLeague, "next");
   };
@@ -36,7 +32,7 @@ const Fixtures = () => {
   const endSeasonHandler = () => {
     const lastFixture = ctx[ctx.currentLeague].fixtures.at(-1);
     let live = [];
-    lastFixture.fixtures.forEach((fixture) => {
+    lastFixture.fixtures.forEach(fixture => {
       if (fixture.matchStatus.includes("live")) {
         live.push(true);
       } else {
@@ -44,7 +40,7 @@ const Fixtures = () => {
       }
     });
 
-    const findEnded = live.find((team) => team === true);
+    const findEnded = live.find(team => team === true);
 
     if (findEnded) {
       alert("Allow match to finish first");
@@ -59,18 +55,14 @@ const Fixtures = () => {
       ctx.setHistory(gottenHistory.history, gottenHistory.leagueName);
       ctx.clearTeamLeagueStat(ctx.currentLeague);
       //   ctx.setHistory()
-      setTimeout(() => {
-        const teams = getTeamsAndRelegatedTeams(
-          ctx[ctx.currentLeague].teams,
-          ctx[ctx.currentLeague].relegatedTeams,
-          ctx.currentLeague
-        );
-        ctx.setTeamsAndRelegatedTeams(
-          teams.teams,
-          teams.relegatedTeams,
-          teams.league
-        );
-      }, 1000);
+      // setTimeout(() => {
+      //   const teams = getTeamsAndRelegatedTeams(
+      //     ctx[ctx.currentLeague].teams,
+      //     ctx[ctx.currentLeague].relegatedTeams,
+      //     ctx.currentLeague
+      //   );
+      //   ctx.setTeamsAndRelegatedTeams(teams.teams, teams.relegatedTeams, teams.league);
+      // }, 3000);
     }
   };
 
@@ -90,14 +82,10 @@ const Fixtures = () => {
     // lets name the change the variables
 
     const home = {
-      ...ctx[competitionName].teams.find(
-        (team) => team.id === match.homeTeam.id
-      ),
+      ...ctx[competitionName].teams.find(team => team.id === match.homeTeam.id),
     };
     const away = {
-      ...ctx[competitionName].teams.find(
-        (team) => team.id === match.awayTeam.id
-      ),
+      ...ctx[competitionName].teams.find(team => team.id === match.awayTeam.id),
     };
 
     ctx[competitionName].currentMatchWeek = matchWeek;
@@ -196,9 +184,9 @@ const Fixtures = () => {
     ctx.setCurrentFixtures(matchDay, ctx.currentLeague, type);
   };
 
-  const playAllMatchHandler = (matchDay) => {
+  const playAllMatchHandler = matchDay => {
     const fixtures = ctx[ctx.currentLeague].fixtures[matchDay - 1].fixtures;
-    fixtures.forEach((match) => {
+    fixtures.forEach(match => {
       if (match.matchStatus === "not yet Played") {
         playMatchHandler(match, ctx.currentLeague, matchDay);
       }
@@ -208,10 +196,11 @@ const Fixtures = () => {
   const nextButtonUI =
     lastFixtures !== currentFixture.matchDay && lastFixtures !== 0 ? (
       <Button
-        className=" px-1 border"
+        className=' px-1 border'
         onClick={() => {
           setNextFixturesHandler(currentFixture.matchDay, "next");
-        }}>
+        }}
+      >
         next
       </Button>
     ) : (
@@ -221,10 +210,11 @@ const Fixtures = () => {
   const prevButtonUI =
     currentFixture.matchDay !== 1 ? (
       <Button
-        className=" px-1 border"
+        className=' px-1 border'
         onClick={() => {
           setNextFixturesHandler(currentFixture.matchDay, "previous");
-        }}>
+        }}
+      >
         prev
       </Button>
     ) : (
@@ -233,15 +223,16 @@ const Fixtures = () => {
 
   const fixturesHeaderUI =
     ctx[ctx.currentLeague].fixtures.length !== 0 ? (
-      <div className="flex justify-between items-center">
+      <div className='flex justify-between items-center'>
         <span>Match Day {currentFixture.matchDay}</span>
-        <div className="space-x-2">
+        <div className='space-x-2'>
           {prevButtonUI}
           {nextButtonUI}
         </div>
         <Button
-          className="bg-gradient-to-r to-green-800 from-gray-800 text-white px-4 py-1 rounded"
-          onClick={playAllMatchHandler.bind(null, currentFixture.matchDay)}>
+          className='bg-gradient-to-r to-green-800 from-gray-800 text-white px-4 py-1 rounded'
+          onClick={playAllMatchHandler.bind(null, currentFixture.matchDay)}
+        >
           Play All Match
         </Button>
       </div>
@@ -249,7 +240,7 @@ const Fixtures = () => {
       ""
     );
 
-  const fixturesLayoutUI = currentFixture.fixtures.map((match) => (
+  const fixturesLayoutUI = currentFixture.fixtures.map(match => (
     <EachFixture
       disabled={match.matchStatus === "not yet Played" ? false : true}
       key={match.id}
@@ -278,32 +269,34 @@ const Fixtures = () => {
 
   const endTheSesasonUI = (
     <Button
-      className="bg-gradient-to-r from-red-600 to-red-900 mt-8 rounded px-4 py-2 text-white"
-      onClick={endSeasonHandler}>
+      className='bg-gradient-to-r from-red-600 to-red-900 mt-8 rounded px-4 py-2 text-white'
+      onClick={endSeasonHandler}
+    >
       End the season
     </Button>
   );
 
   return (
-    <section className="lg:text-base pb-10">
+    <section className='lg:text-base pb-10'>
       {lastFixtures === 0 && (
-        <div className="flex flex-col h-72 justify-center items-center ">
+        <div className='flex flex-col h-72 justify-center items-center '>
           <p>Click the button to start a new season</p>
           <Button
             onClick={setNewFixturesHandler}
-            className=" bg-green-800 text-white p-4 mt-4 rounded-lg flex items-center">
+            className=' bg-green-800 text-white p-4 mt-4 rounded-lg flex items-center'
+          >
             Start new season
           </Button>
         </div>
       )}
 
       <div>
-        <div className="px-4 lg:px-8">
-          <div className="">
-            <div className="">
+        <div className='px-4 lg:px-8'>
+          <div className=''>
+            <div className=''>
               {fixturesHeaderUI}
 
-              <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-5">
+              <div className='grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-5'>
                 {fixturesLayoutUI}
               </div>
             </div>

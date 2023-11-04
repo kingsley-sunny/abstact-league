@@ -2,6 +2,9 @@ import { useContext } from "react";
 import League_Context from "../../Store/league-context";
 import getTeamsStatictics from "../Functions/getTeamsStatictics";
 
+
+const FULL_MATCH_MINUTES = 90;
+
 const usePlayMatch = () => {
   const ctx = useContext(League_Context);
   function playNow(
@@ -29,7 +32,7 @@ const usePlayMatch = () => {
     });
 
     // If the match has ended
-    if (matchTime === 13 + extraTime) {
+    if (matchTime === FULL_MATCH_MINUTES + extraTime) {
       clearInterval(startMatch);
       clearInterval(awayTeamToShoot);
       clearInterval(homeTeamToShoot);
