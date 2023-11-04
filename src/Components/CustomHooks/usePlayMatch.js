@@ -2,7 +2,6 @@ import { useContext } from "react";
 import League_Context from "../../Store/league-context";
 import getTeamsStatictics from "../Functions/getTeamsStatictics";
 
-
 const FULL_MATCH_MINUTES = 90;
 
 const usePlayMatch = () => {
@@ -39,11 +38,7 @@ const usePlayMatch = () => {
 
       updatedMatch.matchStatus = "full-time";
 
-      const gotten = getTeamsStatictics(
-        { ...homeTeam },
-        { ...awayTeam },
-        { ...updatedMatch }
-      );
+      const gotten = getTeamsStatictics({ ...homeTeam }, { ...awayTeam }, { ...updatedMatch });
 
       homeTeam = { ...homeTeam, ...gotten.home };
       awayTeam = { ...awayTeam, ...gotten.away };

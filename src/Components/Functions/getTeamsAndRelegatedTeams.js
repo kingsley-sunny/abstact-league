@@ -1,10 +1,10 @@
-const getTeamsAndRelegatedTeams = (jj, ll, league) => {
+const getTeamsAndRelegatedTeams = (formalTeams, formalRelegatedTeams, league) => {
   const promotedTeamsId = [];
   const promotedTeams = [];
   let relegatedTeams = [];
 
-  const teams = [...jj];
-  let lowerLeagueTeams = [...ll];
+  const teams = [...formalTeams];
+  let lowerLeagueTeams = [...formalRelegatedTeams];
 
   //   lets get the promotedTeams id randomly
   while (promotedTeamsId.length < 3) {
@@ -19,15 +19,20 @@ const getTeamsAndRelegatedTeams = (jj, ll, league) => {
   // lets get the relegatedTeams;
   console.log("teams: ", teams);
 
-  const deletedTeams = teams.splice(0, 3);
-  console.log(deletedTeams);
+  const deletedTeams = teams.reverse().splice(0, 3);
+  console.log("deleted_teams", deletedTeams);
 
   console.log("deletedTeams: ", deletedTeams, "promotedTeams: ", promotedTeams);
 
-  promotedTeams.forEach((team) => {
-    lowerLeagueTeams = lowerLeagueTeams.filter(
-      (relTeam) => relTeam.id !== team.id
-    );
+  promotedTeams.forEach(team => {
+    lowerLeagueTeams = lowerLeagueTeams.filter(relTeam => relTeam.id !== team.id);
+  });
+
+  //   we reset the promoted teams attack, midfield and defense
+  promotedTeams.forEach(team => {
+    team.attack = 2;
+    team.defense = 2;
+    team.midfield = 4;
   });
 
   teams.push(promotedTeams[0]);
@@ -43,7 +48,7 @@ const getTeamsAndRelegatedTeams = (jj, ll, league) => {
   //     teams.push(team);
   //   });
 
-  //   console.log("teams: ", teams);
+  console.log("new teams: ", teams);
 
   //   promotedTeams.forEach((team) => {
   //     lowerLeagueTeams = lowerLeagueTeams.filter(

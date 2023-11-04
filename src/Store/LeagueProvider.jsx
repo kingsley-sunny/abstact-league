@@ -3,11 +3,11 @@ import initialState from "./initialState";
 import League_Context from "./league-context";
 
 let LOCAL_DATA;
-if (localStorage.getItem("abstractLeague") === null) {
+if (localStorage.getItem("abstractLeagues") === null) {
   LOCAL_DATA = initialState;
-  localStorage.setItem("abstractLeague", JSON.stringify(LOCAL_DATA));
+  localStorage.setItem("abstractLeagues", JSON.stringify(LOCAL_DATA));
 } else {
-  LOCAL_DATA = { ...JSON.parse(localStorage.getItem("abstractLeague")) };
+  LOCAL_DATA = { ...JSON.parse(localStorage.getItem("abstractLeagues")) };
 }
 
 const leagueReducer = (state, action) => {
@@ -28,7 +28,7 @@ const leagueReducer = (state, action) => {
       //   this will extract the variables from the payload
       const { fixtureUpdate, competitionName, matchId } = action.payload;
       //   lets get the specific match fixture
-      updatedState[competitionName].fixtures.forEach((matchWk) => {
+      updatedState[competitionName].fixtures.forEach(matchWk => {
         matchWk.fixtures.forEach((match, index) => {
           if (match.id === matchId) {
             matchWk.fixtures[index] = fixtureUpdate;
@@ -80,7 +80,7 @@ const leagueReducer = (state, action) => {
 
     case "CLEAR_LEAGUE_STAT":
       const teams = state[action.payload].teams;
-      teams.forEach((team) => {
+      teams.forEach(team => {
         for (const key in team.league) {
           team.league[key] = 0;
         }
@@ -129,32 +129,25 @@ const leagueReducer = (state, action) => {
   }
 };
 
-const LeagueProvider = (props) => {
-  const [allDataState, dispatchLeagueReducer] = useReducer(
-    leagueReducer,
-    LOCAL_DATA
-  );
+const LeagueProvider = props => {
+  const [allDataState, dispatchLeagueReducer] = useReducer(leagueReducer, LOCAL_DATA);
 
   useEffect(() => {
-    localStorage.setItem("abstractLeague", JSON.stringify(allDataState));
+    localStorage.setItem("abstractLeagues", JSON.stringify(allDataState));
   }, [allDataState]);
 
-  const setCurrentLeagueHandler = (league) => {
+  const setCurrentLeagueHandler = league => {
     dispatchLeagueReducer({ payload: league, type: "SET_CURRENT_LEAGUE" });
   };
 
-  const setFixturesHandler = (gottenFixtures) => {
+  const setFixturesHandler = gottenFixtures => {
     dispatchLeagueReducer({
       payload: gottenFixtures,
       type: "SET_NEW_FIXTURES",
     });
   };
 
-  const setMatchUpdatesHandler = ({
-    fixtureUpdate,
-    competitionName,
-    matchId,
-  }) => {
+  const setMatchUpdatesHandler = ({ fixtureUpdate, competitionName, matchId }) => {
     dispatchLeagueReducer({
       type: "SET_MATCH_UPDATES",
       payload: { fixtureUpdate, competitionName, matchId },
@@ -175,14 +168,14 @@ const LeagueProvider = (props) => {
     });
   };
 
-  const clearCurrentFixturesHandler = (leagueName) => {
+  const clearCurrentFixturesHandler = leagueName => {
     dispatchLeagueReducer({
       type: "CLEAR_CURRENT_FIXTURES",
       payload: leagueName,
     });
   };
 
-  const clearTeamLeagueStatHandler = (leagueName) => {
+  const clearTeamLeagueStatHandler = leagueName => {
     dispatchLeagueReducer({ type: "CLEAR_LEAGUE_STAT", payload: leagueName });
   };
 
@@ -200,11 +193,7 @@ const LeagueProvider = (props) => {
     });
   };
 
-  const setTeamsAndRelegatedTeamsHandler = (
-    teams,
-    relegatedTeams,
-    leagueName
-  ) => {
+  const setTeamsAndRelegatedTeamsHandler = (teams, relegatedTeams, leagueName) => {
     dispatchLeagueReducer({
       type: "SET_TEAMS_AND_RELEGATED_TEAMS",
       payload: {
@@ -232,9 +221,7 @@ const LeagueProvider = (props) => {
   //   throw Error("hslkjf");
 
   return (
-    <League_Context.Provider value={{ ...leagueContext }}>
-      {props.children}
-    </League_Context.Provider>
+    <League_Context.Provider value={{ ...leagueContext }}>{props.children}</League_Context.Provider>
   );
 };
 

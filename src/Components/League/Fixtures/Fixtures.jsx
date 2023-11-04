@@ -6,6 +6,7 @@ import usePlayMatch from "../../CustomHooks/usePlayMatch";
 import changeHistory from "../../Functions/changeHistory";
 import getLeagueFixtures from "../../Functions/getLeagueFixtures";
 import getMatchShotStatictics from "../../Functions/getMatchShotStatictics";
+import getTeamsAndRelegatedTeams from "../../Functions/getTeamsAndRelegatedTeams";
 import Button from "../../UI/Button";
 import EachFixture from "./EachFixture";
 
@@ -54,15 +55,15 @@ const Fixtures = () => {
       );
       ctx.setHistory(gottenHistory.history, gottenHistory.leagueName);
       ctx.clearTeamLeagueStat(ctx.currentLeague);
-      //   ctx.setHistory()
-      // setTimeout(() => {
-      //   const teams = getTeamsAndRelegatedTeams(
-      //     ctx[ctx.currentLeague].teams,
-      //     ctx[ctx.currentLeague].relegatedTeams,
-      //     ctx.currentLeague
-      //   );
-      //   ctx.setTeamsAndRelegatedTeams(teams.teams, teams.relegatedTeams, teams.league);
-      // }, 3000);
+      // ctx.setHistory();
+      setTimeout(() => {
+        const teams = getTeamsAndRelegatedTeams(
+          ctx[ctx.currentLeague].teams,
+          ctx[ctx.currentLeague].relegatedTeams,
+          ctx.currentLeague
+        );
+        ctx.setTeamsAndRelegatedTeams(teams.teams, teams.relegatedTeams, teams.league);
+      }, 1000);
     }
   };
 
@@ -196,7 +197,7 @@ const Fixtures = () => {
   const nextButtonUI =
     lastFixtures !== currentFixture.matchDay && lastFixtures !== 0 ? (
       <Button
-        className=' px-1 border'
+        className=' px-4 py-2 border'
         onClick={() => {
           setNextFixturesHandler(currentFixture.matchDay, "next");
         }}
@@ -210,7 +211,7 @@ const Fixtures = () => {
   const prevButtonUI =
     currentFixture.matchDay !== 1 ? (
       <Button
-        className=' px-1 border'
+        className=' px-4 py-2 border'
         onClick={() => {
           setNextFixturesHandler(currentFixture.matchDay, "previous");
         }}
@@ -256,25 +257,26 @@ const Fixtures = () => {
     />
   ));
 
-  //   const endTheSesasonUI =
-  //     currentFixture.matchDay === lastFixtures ? (
-  //       <Button
-  //         className="bg-gradient-to-r from-red-600 to-red-900 mt-8 rounded px-4 py-2 text-white"
-  //         onClick={endSeasonHandler}>
-  //         End the season
-  //       </Button>
-  //     ) : (
-  //       ""
-  //     );
+  const endTheSesasonUI =
+    currentFixture.matchDay === lastFixtures ? (
+      <Button
+        className='bg-gradient-to-r from-red-600 to-red-900 mt-8 rounded px-4 py-2 text-white'
+        onClick={endSeasonHandler}
+      >
+        End the season
+      </Button>
+    ) : (
+      ""
+    );
 
-  const endTheSesasonUI = (
-    <Button
-      className='bg-gradient-to-r from-red-600 to-red-900 mt-8 rounded px-4 py-2 text-white'
-      onClick={endSeasonHandler}
-    >
-      End the season
-    </Button>
-  );
+  // const endTheSesasonUI = (
+  //   <Button
+  //     className='bg-gradient-to-r from-red-600 to-red-900 mt-8 rounded px-4 py-2 text-white'
+  //     onClick={endSeasonHandler}
+  //   >
+  //     End the season
+  //   </Button>
+  // );
 
   return (
     <section className='lg:text-base pb-10'>
