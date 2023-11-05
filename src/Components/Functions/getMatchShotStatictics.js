@@ -6,9 +6,13 @@ const getMatchShotStatictics = (homeMidfield, awayMidfield, seconds) => {
   let homeTeamInterval = Math.floor((90 * seconds) / homeTeamNoOfShots);
   let awayTeamInterval = Math.floor((90 * seconds) / awayTeamNoOfShots);
 
-  const goal = parseFloat((Math.random() * 3).toFixed(2)) + 8;
+  const goal = parseFloat((Math.random() * 3).toFixed(2)) + 9;
 
   return { goal, homeTeamInterval, awayTeamInterval };
 };
 
 export default getMatchShotStatictics;
+
+export const getGoal = () => {
+  return parseFloat((Math.random() * 3).toFixed(2)) + 9;
+};

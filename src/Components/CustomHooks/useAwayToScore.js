@@ -19,10 +19,9 @@ const useAwayToScore = () => {
     const awayTeam = away;
     const updatedMatch = match;
     const awayToScore =
-      Math.floor(Math.random() * (goal + homeTeam.defence + 0.5)) +
-      awayTeam.attack;
+      Math.floor(Math.random() * (goal + awayTeam.overall / 1.5)) + awayTeam.attack;
 
-    if (awayToScore - homeTeam.defence >= goal) {
+    if (awayToScore - homeTeam.defence - homeTeam.midfield / 3 - homeTeam.attack / 2 >= goal) {
       updatedMatch.awayScore += 1;
 
       // setting the GF for the league if the home team scores

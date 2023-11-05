@@ -30,9 +30,10 @@ const getTeamsAndRelegatedTeams = (formalTeams, formalRelegatedTeams, league) =>
 
   //   we reset the promoted teams attack, midfield and defense
   promotedTeams.forEach(team => {
-    team.attack = 2;
-    team.defense = 2;
-    team.midfield = 4;
+    team.attack = 3;
+    team.defence = 3;
+    team.midfield = 5;
+    team.overall = 11;
   });
 
   teams.push(promotedTeams[0]);

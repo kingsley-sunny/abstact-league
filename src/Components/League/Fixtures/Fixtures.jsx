@@ -5,7 +5,7 @@ import useHomeToScore from "../../CustomHooks/useHomeToScore";
 import usePlayMatch from "../../CustomHooks/usePlayMatch";
 import changeHistory from "../../Functions/changeHistory";
 import getLeagueFixtures from "../../Functions/getLeagueFixtures";
-import getMatchShotStatictics from "../../Functions/getMatchShotStatictics";
+import getMatchShotStatictics, { getGoal } from "../../Functions/getMatchShotStatictics";
 import getTeamsAndRelegatedTeams from "../../Functions/getTeamsAndRelegatedTeams";
 import Button from "../../UI/Button";
 import EachFixture from "./EachFixture";
@@ -109,7 +109,7 @@ const Fixtures = () => {
     awayTeam.league.pts += 1;
 
     // lets get the statictics for the shot
-    const { goal, homeTeamInterval, awayTeamInterval } = getMatchShotStatictics(
+    const { homeTeamInterval, awayTeamInterval } = getMatchShotStatictics(
       homeTeam.midfield,
       awayTeam.midfield,
       seconds
@@ -117,7 +117,7 @@ const Fixtures = () => {
 
     // set the match time variable and the extra time
     let matchTime = 0;
-    const extraTime = Math.floor(Math.random() * 8);
+    const extraTime = Math.floor(Math.random() * 10);
 
     // // ================================
     // THIS IS WHERE WE SET ALL THE INITIAL MATCH DETAILS ;
@@ -138,6 +138,7 @@ const Fixtures = () => {
     });
 
     const homeTeamToShoot = setInterval(() => {
+      const goal = getGoal();
       setHomeToScore(
         homeTeam,
         awayTeam,
@@ -151,6 +152,7 @@ const Fixtures = () => {
     }, homeTeamInterval);
 
     const awayTeamToShoot = setInterval(() => {
+      const goal = getGoal();
       setAwayToScore(
         homeTeam,
         awayTeam,
