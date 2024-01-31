@@ -28,12 +28,22 @@ const getTeamsAndRelegatedTeams = (formalTeams, formalRelegatedTeams, league) =>
     lowerLeagueTeams = lowerLeagueTeams.filter(relTeam => relTeam.id !== team.id);
   });
 
+  // get the lowest team in the formalLeague
+  const averageTeams = deletedTeams.reduce((prev, curr) => {
+    return {
+      attack: prev.attack + curr.attack,
+      midfield: prev.midfield + curr.midfield,
+      defence: prev.defence + curr.defence,
+      overall: prev.overall + curr.overall,
+    };
+  });
+
   //   we reset the promoted teams attack, midfield and defense
   promotedTeams.forEach(team => {
-    team.attack = 3;
-    team.defence = 3;
-    team.midfield = 5;
-    team.overall = 11;
+    team.attack = Number((averageTeams.attack / 3).toFixed(4));
+    team.defence = Number((averageTeams.defence / 3).toFixed(4));
+    team.midfield = Number((averageTeams.midfield / 3).toFixed(4));
+    team.overall = Number((averageTeams.overall / 3).toFixed(4));
   });
 
   teams.push(promotedTeams[0]);
