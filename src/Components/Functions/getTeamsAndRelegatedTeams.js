@@ -19,8 +19,13 @@ const getTeamsAndRelegatedTeams = (formalTeams, formalRelegatedTeams, league) =>
   // lets get the relegatedTeams;
   console.log("teams: ", teams);
 
-  const deletedTeams = teams.reverse().splice(0, 3);
+  const deletedTeams = teams.slice(-3);
   console.log("deleted_teams", deletedTeams);
+
+  // remove the three last teams
+  teams.pop();
+  teams.pop();
+  teams.pop();
 
   console.log("deletedTeams: ", deletedTeams, "promotedTeams: ", promotedTeams);
 

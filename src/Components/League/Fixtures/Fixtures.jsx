@@ -259,17 +259,14 @@ const Fixtures = () => {
     />
   ));
 
-  const endTheSesasonUI =
-    currentFixture.matchDay === lastFixtures ? (
-      <Button
-        className='bg-gradient-to-r from-red-600 to-red-900 mt-8 rounded px-4 py-2 text-white'
-        onClick={endSeasonHandler}
-      >
-        End the season
-      </Button>
-    ) : (
-      ""
-    );
+  const endTheSesasonUI = true ? (
+    <Button
+      className='bg-gradient-to-r from-red-600 to-red-900 mt-8 rounded px-4 py-2 text-white'
+      onClick={endSeasonHandler}
+    >
+      End the season
+    </Button>
+  ) : null;
 
   // const endTheSesasonUI = (
   //   <Button
