@@ -114,15 +114,23 @@ const getTeamsStatictics = (home, away, match) => {
   }
 
   if (homeTeam.overall - awayTeam.overall >= 0.5 && match.awayScore >= match.homeScore) {
-    homeTeam.attack -= 0.1;
-    homeTeam.midfield -= 0.2;
-    homeTeam.defence -= 0.1;
+    homeTeam.attack -= 0.2;
+    homeTeam.midfield -= 0.4;
+    homeTeam.defence -= 0.2;
+
+    awayTeam.attack += 0.2;
+    awayTeam.midfield += 0.4;
+    awayTeam.defence += 0.2;
   }
 
   if (awayTeam.overall - homeTeam.overall >= 0.5 && match.homeScore >= match.awayScore) {
-    awayTeam.attack -= 0.1;
-    awayTeam.midfield -= 0.2;
-    awayTeam.defence -= 0.1;
+    awayTeam.attack -= 0.2;
+    awayTeam.midfield -= 0.4;
+    awayTeam.defence -= 0.2;
+
+    homeTeam.attack += 0.2;
+    homeTeam.midfield += 0.4;
+    homeTeam.defence += 0.2;
   }
 
   homeTeam.overall = homeTeam.attack + homeTeam.defence + homeTeam.midfield;
