@@ -76,37 +76,37 @@ const getTeamsAndRelegatedTeams = (formalTeams, formalRelegatedTeams, league) =>
     if (index >= 0 && index < 4) {
       return {
         ...team,
-        attack: 4,
-        midfield: 6,
-        defence: 4,
-        overall: 14,
+        attack: 2.8,
+        midfield: 4.8,
+        defence: 2.8,
+        overall: 10.4,
       };
     }
     if (index > 3 && index < 8) {
       return {
         ...team,
-        attack: 3.5,
-        midfield: 5.5,
-        defence: 3.5,
-        overall: 12.5,
+        attack: 2.6,
+        midfield: 4.6,
+        defence: 2.6,
+        overall: 9.8,
       };
     }
     if (index > 7 && index < 12) {
       return {
         ...team,
-        attack: 3,
-        midfield: 5,
-        defence: 3,
-        overall: 11,
+        attack: 2.4,
+        midfield: 4.4,
+        defence: 2.4,
+        overall: 9.2,
       };
     }
     if (index > 11 && index < 16) {
       return {
         ...team,
-        attack: 2.5,
-        midfield: 4.5,
-        defence: 2.5,
-        overall: 9.5,
+        attack: 2.2,
+        midfield: 4.2,
+        defence: 2.2,
+        overall: 8.6,
       };
     }
     if (index > 15 && index < 20) {
