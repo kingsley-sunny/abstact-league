@@ -115,6 +115,60 @@ const leagueReducer = (state, action) => {
         },
       };
 
+    case "RESET_TEAM_STRENGTH":
+      const newTeams = state[action.payload].teams.map((team, index) => {
+        if (index >= 0 && index < 4) {
+          return {
+            ...team,
+            attack: 2.8,
+            midfield: 4.8,
+            defence: 2.8,
+            overall: 10.4,
+          };
+        }
+        if (index > 3 && index < 8) {
+          return {
+            ...team,
+            attack: 2.6,
+            midfield: 4.6,
+            defence: 2.6,
+            overall: 9.8,
+          };
+        }
+        if (index > 7 && index < 12) {
+          return {
+            ...team,
+            attack: 2.4,
+            midfield: 4.4,
+            defence: 2.4,
+            overall: 9.2,
+          };
+        }
+        if (index > 11 && index < 16) {
+          return {
+            ...team,
+            attack: 2.2,
+            midfield: 4.2,
+            defence: 2.2,
+            overall: 8.6,
+          };
+        }
+        if (index > 15 && index < 20) {
+          return {
+            ...team,
+            attack: 2,
+            midfield: 4,
+            defence: 2,
+            overall: 8,
+          };
+        }
+      });
+
+      return {
+        ...state,
+        [action.payload]: { ...state[action.payload], teams: newTeams },
+      };
+
     case "SET_TEAMS_AND_RELEGATED_TEAMS":
       return {
         ...state,
@@ -193,6 +247,10 @@ const LeagueProvider = props => {
     });
   };
 
+  const resetTeamStrengthHandler = leagueName => {
+    dispatchLeagueReducer({ type: "RESET_TEAM_STRENGTH", payload: leagueName });
+  };
+
   const setTeamsAndRelegatedTeamsHandler = (teams, relegatedTeams, leagueName) => {
     dispatchLeagueReducer({
       type: "SET_TEAMS_AND_RELEGATED_TEAMS",
@@ -216,6 +274,7 @@ const LeagueProvider = props => {
     updateLeagueWinners: updateLeagueWinnersHandler,
     setHistory: setHistoryHandler,
     setTeamsAndRelegatedTeams: setTeamsAndRelegatedTeamsHandler,
+    resetTeamStrength: resetTeamStrengthHandler,
   };
 
   //   throw Error("hslkjf");
