@@ -3,7 +3,15 @@ const getTeamsAndRelegatedTeams = (formalTeams, formalRelegatedTeams, league) =>
   const promotedTeams = [];
   let relegatedTeams = [];
 
-  const teams = [...formalTeams];
+  const teams = [
+    ...formalTeams.sort((teamA, teamB) => {
+      return (
+        teamB.league.pts - teamA.league.pts ||
+        teamB.league.GD - teamA.league.GD ||
+        teamA.league.GA - teamB.league.GA
+      );
+    }),
+  ];
   let lowerLeagueTeams = [...formalRelegatedTeams];
 
   //   lets get the promotedTeams id randomly
@@ -17,7 +25,7 @@ const getTeamsAndRelegatedTeams = (formalTeams, formalRelegatedTeams, league) =>
   }
 
   // lets get the relegatedTeams;
-  console.log("teams: ", teams);
+  console.log("teams: ", formalTeams);
 
   const deletedTeams = teams.slice(-3);
   console.log("deleted_teams", deletedTeams);
@@ -64,7 +72,55 @@ const getTeamsAndRelegatedTeams = (formalTeams, formalRelegatedTeams, league) =>
   //     teams.push(team);
   //   });
 
-  console.log("new teams: ", teams);
+  const newTeams = teams.map((team, index) => {
+    if (index >= 0 && index < 4) {
+      return {
+        ...team,
+        attack: 4,
+        midfield: 6,
+        defence: 4,
+        overall: 14,
+      };
+    }
+    if (index > 3 && index < 8) {
+      return {
+        ...team,
+        attack: 3.5,
+        midfield: 5.5,
+        defence: 3.5,
+        overall: 12.5,
+      };
+    }
+    if (index > 7 && index < 12) {
+      return {
+        ...team,
+        attack: 3,
+        midfield: 5,
+        defence: 3,
+        overall: 11,
+      };
+    }
+    if (index > 11 && index < 16) {
+      return {
+        ...team,
+        attack: 2.5,
+        midfield: 4.5,
+        defence: 2.5,
+        overall: 9.5,
+      };
+    }
+    if (index > 15 && index < 20) {
+      return {
+        ...team,
+        attack: 2,
+        midfield: 4,
+        defence: 2,
+        overall: 8,
+      };
+    }
+  });
+
+  console.log("new teams: ", newTeams);
 
   //   promotedTeams.forEach((team) => {
   //     lowerLeagueTeams = lowerLeagueTeams.filter(
@@ -82,7 +138,7 @@ const getTeamsAndRelegatedTeams = (formalTeams, formalRelegatedTeams, league) =>
 
   //   console.log("teams: ", teams, "lower league teams: ", lowerLeagueTeams);
 
-  return { teams: teams, relegatedTeams: lowerLeagueTeams, league };
+  return { teams: newTeams, relegatedTeams: lowerLeagueTeams, league };
 };
 
 export default getTeamsAndRelegatedTeams;
